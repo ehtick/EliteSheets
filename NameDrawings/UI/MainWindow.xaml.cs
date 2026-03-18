@@ -55,8 +55,6 @@ namespace EliteSheets
         private bool _isDarkMode = true;
         private string _templateDxfPath = string.Empty;
 
-        // Background scanning state
-
         public ObservableCollection<string> ViewTypes { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> ViewTemplates { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<SheetItem> Sheets { get; set; } = new ObservableCollection<SheetItem>();
@@ -146,7 +144,6 @@ namespace EliteSheets
             _createPrintSettingHandler = new CreatePrintSettingHandler { Doc = _doc };
             _createPrintSettingEvent = ExternalEvent.Create(_createPrintSettingHandler);
 
-            // Subscribe to Idling for background paper size scanning
         }
 
         #endregion
@@ -693,7 +690,15 @@ namespace EliteSheets
                 return;
             }
 
-            // 4) raise export event
+            // 4) compute paper sizes for selected sheets only
+            foreach (var vs in sheetElements)
+            {
+                var matchingItem = selected.FirstOrDefault(s => s.Id == vs.Id);
+                if (matchingItem != null)
+                    matchingItem.PaperSize = PaperSizeHelper.GetPaperSizeLabel(vs);
+            }
+
+            // 5) raise export event
             _exportHandler.UiDoc = _uiDoc;
             _exportHandler.Doc = _doc;
             _exportHandler.SheetsToExport = sheetElements;
@@ -812,8 +817,6 @@ namespace EliteSheets
             {
                 Closed -= MainWindow_Closed;
                 
-                // Cleanup Idling if still active
-
                 SaveThemeState();
 
                 if (SheetsDataGrid != null) SheetsDataGrid.ItemsSource = null;

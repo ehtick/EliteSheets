@@ -10,6 +10,7 @@ namespace EliteSheets.Models
         private string _number;
         private string _viewName;
         private string _version;
+        private string _paperSize = "-";
         private ElementId _id;
 
         public string Name
@@ -36,6 +37,11 @@ namespace EliteSheets.Models
             set { _version = value; OnPropertyChanged(nameof(Version)); }
         }
 
+        public string PaperSize
+        {
+            get => _paperSize;
+            set { _paperSize = value; OnPropertyChanged(nameof(PaperSize)); }
+        }
 
         public ElementId Id
         {
