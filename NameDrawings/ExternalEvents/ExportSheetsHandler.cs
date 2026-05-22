@@ -352,7 +352,12 @@ namespace EliteSheets.ExternalEvents
 
                 if (result == TaskDialogResult.Yes && Directory.Exists(ExportPath))
                 {
-                    Process.Start("explorer.exe", ExportPath);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = ExportPath,
+                        UseShellExecute = true,
+                        Verb = "open"
+                    });
                 }
             }
             else
