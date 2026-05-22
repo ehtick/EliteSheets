@@ -1,5 +1,9 @@
 # EliteSheets
 
+🇬🇧 English | [🇪🇪 Eesti](README.et.md)
+
+---
+
 **Stop exporting sheets one by one.** EliteSheets is a Revit add-in that lets you select any number of sheets and export them all to PDF, DWG, and DXF in a single click — without ever leaving Revit.
 
 ---
