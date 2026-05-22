@@ -739,7 +739,30 @@ namespace EliteSheets
             if (headerCheckbox == null) return;
 
             var newState = headerCheckbox.IsChecked == true;
-            foreach (var item in Sheets) item.IsChecked = newState;
+
+            if (newState)
+            {
+                // If checking, only check visible items
+                if (_sheetsView != null)
+                {
+                    foreach (var item in _sheetsView)
+                    {
+                        var sheetItem = item as SheetItem;
+                        if (sheetItem != null)
+                        {
+                            sheetItem.IsChecked = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // If unchecking, uncheck all items globally
+                foreach (var item in Sheets)
+                {
+                    item.IsChecked = false;
+                }
+            }
 
             SheetsDataGrid.Items.Refresh();
         }
