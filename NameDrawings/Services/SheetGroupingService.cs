@@ -9,6 +9,20 @@ namespace EliteSheets.Services
 {
     public class SheetGroupingService
     {
+        private static readonly char[] _invalidFileNameChars = Path.GetInvalidFileNameChars();
+
+        private static readonly Regex MergeOrderRegex = new Regex(
+            @"--\s*(\d+)\s*$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static readonly Regex GroupNumberRegex = new Regex(
+            @"-7-\s*([0-9]+)\s*_",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static readonly Regex PartsRegex = new Regex(
+            @"^(?<prefix>.+?)-7-\s*(?<group>\d+)\s*_(?<title>.+?)(?:--\s*\d+\s*)?$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         public class PartitionResult
         {
             /// <summary>
@@ -63,7 +77,7 @@ namespace EliteSheets.Services
             order = int.MaxValue;
             if (string.IsNullOrWhiteSpace(sheetNumber)) return false;
 
-            var m = Regex.Match(sheetNumber, @"--\s*(\d+)\s*$");
+            var m = MergeOrderRegex.Match(sheetNumber);
             if (!m.Success) return false;
 
             return int.TryParse(m.Groups[1].Value, out order);
@@ -76,7 +90,7 @@ namespace EliteSheets.Services
             if (string.IsNullOrWhiteSpace(sheetNumber)) return false;
 
             var normalized = sheetNumber.Replace('–', '-').Replace('—', '-');
-            var m = Regex.Match(normalized, @"-7-\s*([0-9]+)\s*_", RegexOptions.CultureInvariant);
+            var m = GroupNumberRegex.Match(normalized);
             if (!m.Success) return false;
 
             group = m.Groups[1].Value.Trim();
@@ -111,10 +125,7 @@ namespace EliteSheets.Services
             var normalized = sheetNumber.Replace('–', '-').Replace('—', '-');
 
             // ^(prefix)-7-(group)_(title)(--N)?$
-            var m = Regex.Match(
-                normalized,
-                @"^(?<prefix>.+?)-7-\s*(?<group>\d+)\s*_(?<title>.+?)(?:--\s*\d+\s*)?$",
-                RegexOptions.CultureInvariant);
+            var m = PartsRegex.Match(normalized);
 
             if (!m.Success) return false;
 
@@ -122,7 +133,7 @@ namespace EliteSheets.Services
             group = m.Groups["group"].Value.Trim();
             title = m.Groups["title"].Value.Trim();
 
-            foreach (var c in Path.GetInvalidFileNameChars())
+            foreach (var c in _invalidFileNameChars)
                 title = title.Replace(c.ToString(), "");
 
             return prefix.Length > 0 && group.Length > 0 && title.Length > 0;
