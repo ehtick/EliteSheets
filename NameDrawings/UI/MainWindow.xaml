@@ -190,9 +190,31 @@
                             Foreground="{DynamicResource IconBrush}"
                             Kind="Magnify" />
 
+                        <!--  Search textbox placeholder  -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="2,0,0,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource ForegroundBrush}"
+                            IsHitTestVisible="False"
+                            Opacity="0.5"
+                            Text="Search...">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SheetSearchTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
                         <!--  Search textbox  -->
                         <TextBox
                             x:Name="SheetSearchTextBox"
+                            AutomationProperties.Name="Search sheets"
                             Grid.Column="1"
                             Width="150"
                             Margin="0"
@@ -208,6 +230,7 @@
                         <!--  Clear button  -->
                         <Button
                             x:Name="ClearSearchButton"
+                            AutomationProperties.Name="Clear search"
                             Grid.Column="2"
                             Width="24"
                             Height="24"
@@ -239,6 +262,7 @@
                     <!--  NEW: Reload button (to the left of theme toggle)  -->
                     <Button
                         x:Name="ReloadButton"
+                        AutomationProperties.Name="Reload sheets"
                         Grid.Column="0"
                         Margin="0,0,30,0"
                         Click="ReloadButton_Click"
@@ -250,6 +274,7 @@
                     <!--  Existing theme toggle  -->
                     <ToggleButton
                         x:Name="ThemeToggleButton"
+                        AutomationProperties.Name="Toggle Theme"
                         Grid.Column="1"
                         Width="28"
                         Height="15.5"
