@@ -9,6 +9,8 @@ namespace EliteSheets.Services
 {
     public class SheetGroupingService
     {
+        private static readonly char[] _invalidFileNameChars = Path.GetInvalidFileNameChars();
+
         public class PartitionResult
         {
             /// <summary>
@@ -122,7 +124,7 @@ namespace EliteSheets.Services
             group = m.Groups["group"].Value.Trim();
             title = m.Groups["title"].Value.Trim();
 
-            foreach (var c in Path.GetInvalidFileNameChars())
+            foreach (var c in _invalidFileNameChars)
                 title = title.Replace(c.ToString(), "");
 
             return prefix.Length > 0 && group.Length > 0 && title.Length > 0;
