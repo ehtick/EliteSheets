@@ -344,6 +344,7 @@
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <CheckBox
                                                 x:Name="CheckAllBox"
+                                                AutomationProperties.Name="Select all sheets"
                                                 Click="CheckAllBox_Click"
                                                 Style="{StaticResource DatagridCheckboxStyle}"
                                                 ToolTip="Check/Uncheck All" />
@@ -354,6 +355,7 @@
                                     <DataTemplate>
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <CheckBox
+                                                AutomationProperties.Name="Select sheet"
                                                 Click="Checkbox_Click"
                                                 IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource DatagridCheckboxStyle}" />
