@@ -355,10 +355,16 @@
                                     <DataTemplate>
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <CheckBox
-                                                AutomationProperties.Name="Select sheet"
                                                 Click="Checkbox_Click"
                                                 IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                Style="{StaticResource DatagridCheckboxStyle}" />
+                                                Style="{StaticResource DatagridCheckboxStyle}">
+                                                <AutomationProperties.Name>
+                                                    <MultiBinding StringFormat="Select sheet {0} - {1}">
+                                                        <Binding Path="Number" />
+                                                        <Binding Path="Name" />
+                                                    </MultiBinding>
+                                                </AutomationProperties.Name>
+                                            </CheckBox>
                                         </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
