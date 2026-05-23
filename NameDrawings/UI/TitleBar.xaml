@@ -31,6 +31,7 @@
 
             <!--  Close Button  -->
             <Button
+                AutomationProperties.Name="Close window"
                 Width="35"
                 Height="19"
                 Background="Transparent"
@@ -66,6 +67,7 @@
             </Button>
             <!--  Minimize Button  -->
             <Button
+                AutomationProperties.Name="Minimize window"
                 Width="19"
                 Height="19"
                 HorizontalAlignment="Right"
