@@ -424,19 +424,23 @@
                                 <CheckBox
                                     x:Name="DwgExportCheckbox"
                                     Margin="0,0,20,0"
+                                    AutomationProperties.Name="Export to DWG"
                                     Content="DWG"
                                     FontSize="24"
                                     FontWeight="Bold"
                                     IsChecked="True"
-                                    Style="{StaticResource CustomCheckboxStyle}" />
+                                    Style="{StaticResource CustomCheckboxStyle}"
+                                    ToolTip="Export to DWG format" />
                                 <CheckBox
                                     x:Name="PdfExportCheckbox"
                                     Margin="0,0,20,0"
+                                    AutomationProperties.Name="Export to PDF"
                                     Content="PDF"
                                     FontSize="24"
                                     FontWeight="Bold"
                                     IsChecked="True"
-                                    Style="{StaticResource CustomCheckboxStyle}" />
+                                    Style="{StaticResource CustomCheckboxStyle}"
+                                    ToolTip="Export to PDF format" />
                             </StackPanel>
 
                             <StackPanel
@@ -444,6 +448,7 @@
                                 HorizontalAlignment="Left"
                                 Orientation="Horizontal">
                                 <TextBlock
+                                    x:Name="DwgExportSettingsLabel"
                                     Margin="0,0,10,0"
                                     VerticalAlignment="Center"
                                     FontSize="12"
@@ -454,6 +459,7 @@
                                     Width="100"
                                     Height="20"
                                     VerticalAlignment="Center"
+                                    AutomationProperties.LabeledBy="{Binding ElementName=DwgExportSettingsLabel}"
                                     DisplayMemberPath="Name"
                                     Style="{StaticResource DarkThemeComboBox}"
                                     ToolTip="Select DWG Export Setup" />
@@ -468,18 +474,22 @@
                                     Width="80"
                                     Height="25"
                                     Margin="0,0,5,0"
+                                    AutomationProperties.Name="Browse for export folder"
                                     Click="BrowseButton_Click"
                                     Content="Browse"
                                     FontSize="14"
-                                    Style="{StaticResource CustomActionButtonStyle}" />
+                                    Style="{StaticResource CustomActionButtonStyle}"
+                                    ToolTip="Select a folder for exported files" />
                                 <TextBox
                                     x:Name="ExportPathTextBox"
                                     Height="25"
                                     MinWidth="300"
                                     VerticalContentAlignment="Center"
+                                    AutomationProperties.Name="Export path"
                                     IsReadOnly="True"
                                     Style="{StaticResource CustomTextBoxStyle}"
-                                    Text="C:\Path\To\Export" />
+                                    Text="C:\Path\To\Export"
+                                    ToolTip="Selected export path" />
                             </StackPanel>
                         </StackPanel>
 
@@ -494,11 +504,13 @@
                                 Width="200"
                                 Height="100"
                                 VerticalAlignment="Center"
+                                AutomationProperties.Name="Print and export selected sheets"
                                 Click="PrintButton_Click"
                                 Content="Print"
                                 FontSize="24"
                                 FontWeight="Bold"
-                                Style="{StaticResource CustomActionButtonStyle}" />
+                                Style="{StaticResource CustomActionButtonStyle}"
+                                ToolTip="Print and export selected sheets" />
                         </StackPanel>
                     </Grid>
                 </materialDesign:Card>
